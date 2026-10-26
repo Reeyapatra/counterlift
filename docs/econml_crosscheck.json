@@ -1,0 +1,13 @@
+{
+  "dataset": "SYNTHETIC INDEPENDENT TRAIN/TEST",
+  "seed_train": 31,
+  "seed_test": 32,
+  "truth_mean": 0.0366125,
+  "custom_dr_mean": 0.03758450315107857,
+  "econml_dr_mean": 0.03770746483519361,
+  "custom_dr_rmse": 0.026674960584918174,
+  "econml_dr_rmse": 0.08459062687535296,
+  "econml_version": "0.16.0",
+  "scikit_learn_version": "1.6.1",
+  "scope": "Separate nuisance/final learners: agreement is checked against synthetic truth, not numerical estimator equivalence or Criteo superiority."
+}

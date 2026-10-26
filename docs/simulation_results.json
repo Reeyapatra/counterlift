@@ -1,0 +1,151 @@
+{
+  "dataset": "SYNTHETIC REPEATED EXPERIMENTS",
+  "seed": 2026,
+  "results": [
+    {
+      "effect": "null",
+      "propensity": "known",
+      "nuisance": "oracle",
+      "truth": 0.0,
+      "trials": 200,
+      "n": 4000,
+      "aipw_bias": 0.00019086309523809315,
+      "ipw_bias": 0.000286904761904775,
+      "aipw_coverage": 0.955,
+      "ipw_coverage": 0.955
+    },
+    {
+      "effect": "null",
+      "propensity": "known",
+      "nuisance": "misspecified",
+      "truth": 0.0,
+      "trials": 200,
+      "n": 4000,
+      "aipw_bias": 0.001602648809523809,
+      "ipw_bias": 0.001547619047619061,
+      "aipw_coverage": 0.955,
+      "ipw_coverage": 0.955
+    },
+    {
+      "effect": "null",
+      "propensity": "independent_training_estimate",
+      "nuisance": "oracle",
+      "truth": 0.0,
+      "trials": 200,
+      "n": 4000,
+      "aipw_bias": 0.00029225882505903833,
+      "ipw_bias": 1.6303851787138683e-05,
+      "aipw_coverage": 0.96,
+      "ipw_coverage": 0.94
+    },
+    {
+      "effect": "null",
+      "propensity": "independent_training_estimate",
+      "nuisance": "misspecified",
+      "truth": 0.0,
+      "trials": 200,
+      "n": 4000,
+      "aipw_bias": -0.00014460278668056555,
+      "ipw_bias": -0.0008086950079905186,
+      "aipw_coverage": 0.95,
+      "ipw_coverage": 0.925
+    },
+    {
+      "effect": "negative",
+      "propensity": "known",
+      "nuisance": "oracle",
+      "truth": -0.05,
+      "trials": 200,
+      "n": 4000,
+      "aipw_bias": 0.0006342261904761781,
+      "ipw_bias": 0.0009404761904761999,
+      "aipw_coverage": 0.955,
+      "ipw_coverage": 0.935
+    },
+    {
+      "effect": "negative",
+      "propensity": "known",
+      "nuisance": "misspecified",
+      "truth": -0.05,
+      "trials": 200,
+      "n": 4000,
+      "aipw_bias": -0.0007775892857142877,
+      "ipw_bias": -2.3809523809509292e-05,
+      "aipw_coverage": 0.95,
+      "ipw_coverage": 0.955
+    },
+    {
+      "effect": "negative",
+      "propensity": "independent_training_estimate",
+      "nuisance": "oracle",
+      "truth": -0.05,
+      "trials": 200,
+      "n": 4000,
+      "aipw_bias": 6.131804208602681e-05,
+      "ipw_bias": 4.848684619444821e-05,
+      "aipw_coverage": 0.96,
+      "ipw_coverage": 0.965
+    },
+    {
+      "effect": "negative",
+      "propensity": "independent_training_estimate",
+      "nuisance": "misspecified",
+      "truth": -0.05,
+      "trials": 200,
+      "n": 4000,
+      "aipw_bias": 0.0012388068933562937,
+      "ipw_bias": 0.0007427373195400475,
+      "aipw_coverage": 0.95,
+      "ipw_coverage": 0.925
+    },
+    {
+      "effect": "heterogeneous",
+      "propensity": "known",
+      "nuisance": "oracle",
+      "truth": 0.03,
+      "trials": 200,
+      "n": 4000,
+      "aipw_bias": 7.245238095236403e-05,
+      "ipw_bias": -0.00031964285714284474,
+      "aipw_coverage": 0.96,
+      "ipw_coverage": 0.955
+    },
+    {
+      "effect": "heterogeneous",
+      "propensity": "known",
+      "nuisance": "misspecified",
+      "truth": 0.03,
+      "trials": 200,
+      "n": 4000,
+      "aipw_bias": 0.00015901785714286104,
+      "ipw_bias": -0.0005333333333333162,
+      "aipw_coverage": 0.97,
+      "ipw_coverage": 0.97
+    },
+    {
+      "effect": "heterogeneous",
+      "propensity": "independent_training_estimate",
+      "nuisance": "oracle",
+      "truth": 0.03,
+      "trials": 200,
+      "n": 4000,
+      "aipw_bias": 0.00046485662015729665,
+      "ipw_bias": -6.890931392372623e-05,
+      "aipw_coverage": 0.95,
+      "ipw_coverage": 0.92
+    },
+    {
+      "effect": "heterogeneous",
+      "propensity": "independent_training_estimate",
+      "nuisance": "misspecified",
+      "truth": 0.03,
+      "trials": 200,
+      "n": 4000,
+      "aipw_bias": -0.000509761224171637,
+      "ipw_bias": -0.0007946241239157707,
+      "aipw_coverage": 0.925,
+      "ipw_coverage": 0.95
+    }
+  ],
+  "scope": "Fixed nuisance functions; independent training propensity redrawn per trial. Wald intervals exclude propensity uncertainty. No learned-policy, model-selection, rare-Criteo-outcome or transport coverage claim."
+}
