@@ -99,7 +99,7 @@ instance or expose a model-file upload. Streamlit deployment configuration, auto
 release checks, drift thresholds and rollback are specified in `docs/BUILD_WITH_CODEX.md`.
 See `docs/OPERATIONS.md` for aggregate export, container build, batch idempotency and
 rollback instructions. Local container and UI checks are recorded in `docs/STATUS.md`.
-Public hosting, calibrated drift alerts and real-data validation remain unfinished.
+Public hosting, real-data alert calibration and real-data validation remain unfinished.
 
 ## Sources and data attribution
 
@@ -125,3 +125,5 @@ response targeting is inconclusive. No real Criteo superiority is claimed.
 aggregate-only read-only app bundle. Set `COUNTERLIFT_RUN=runs/public-demo` to use it.
 EconML uses a separate optional lock because its scikit-learn constraint differs
 from the app's lock. See the operations guide before installing it.
+
+See [synthetic results table](docs/RESULTS.md) and [shift screening validation](docs/shift_validation.json).

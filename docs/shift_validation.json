@@ -1,0 +1,12 @@
+{
+  "dataset": "SYNTHETIC CORRELATED GAUSSIAN FEATURES",
+  "seed": 2026,
+  "trials": 300,
+  "reference_n": 1200,
+  "target_n": 300,
+  "target_familywise_alpha": 0.05,
+  "null_alert_fraction": 0.06,
+  "shifted_alert_fraction": 1.0,
+  "shift": ".5 units on feature 0",
+  "scope": "Gaussian iid sample calibration only; no real-data, heavy-tail, group-dependence or causal-effect-drift calibration"
+}

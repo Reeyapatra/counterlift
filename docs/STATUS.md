@@ -17,9 +17,9 @@ variable are CounterLift / `counterlift` / `COUNTERLIFT_RUN`.
    Optional EconML cross-check was completed on independent synthetic data only.
 3. **Operational milestone partial.** Atomic completion, schema/checksums, structured
    completion events, run/source IDs, aggregate export, batch idempotency/provenance,
-   local container and rollback implemented. Public hosting, calibrated shift alerts,
-   hosted rollback and operational deployment remain unfinished. Feature-shift
-   threshold 0.2 is explicitly heuristic; it is not causal-effect monitoring.
+   local container and rollback implemented. Public hosting, real-data shift calibration,
+   hosted rollback and operational deployment remain unfinished. Feature-shift screening now uses simulated Gaussian-reference maximum statistics
+   with training covariance; it is not causal-effect monitoring.
 4. **Portfolio milestone partial.** Decision memo, architecture SVG/Mermaid,
    interview guide, synthetic result files and an actual CLI demo recording exist.
    No real-data results, public app URL, UI screen recording or commercial impact.
@@ -33,11 +33,11 @@ for statistical/app checks. Core dependencies: Python 3.12.14, NumPy 2.3.5, pand
 - `python -m venv .venv`; `.venv/bin/python -m pip install -r requirements-lock.txt`;
   `.venv/bin/python -m pip install --no-deps -e .`: passed.
 - `.venv/bin/python -m pip check`: passed, no broken requirements.
-- `.venv/bin/python -m unittest discover -s tests -v`: **18 tests passed**. Includes
+- `.venv/bin/python -m unittest discover -s tests -v`: **20 tests passed**. Includes
   null/negative/heterogeneous effects, assignment permutation, constant features,
   rare-event rejection, source-row uniqueness, matching AIPW inputs, finite financial
   inputs, zero-probability comparator capacity, test-outcome selection invariance,
-  split isolation, corruption rejection and batch idempotency.
+  split isolation, corruption rejection, batch idempotency and feature-shift screening.
 - `counterlift demo --out runs/demo --bootstrap 200`: 20,000 synthetic rows;
   12,000/4,000/4,000 train/validation/test. Validation selected T-learner. Paired
   test difference vs response 0.002779, 95% interval [-0.005968, 0.010166]:
@@ -65,6 +65,9 @@ for statistical/app checks. Core dependencies: Python 3.12.14, NumPy 2.3.5, pand
   initial audit reported 37 Pillow vulnerabilities. Upgraded 12.3.0 → 13.0.0;
   final audit reported **no known vulnerabilities** in the locked app dependencies.
   See `security_audit.json`. This is not a guarantee of security or a container OS audit.
+- `python scripts/validate_shift.py`: 300 correlated-Gaussian synthetic trials;
+  6% null alerts at nominal familywise 5%, and 100% detection for the declared
+  feature-0 shift. This is not real-data, heavy-tail or dependence calibration.
 - CI configuration is present; GitHub-hosted execution is not claimed until observed.
 
 ## Corrections and remaining boundaries
@@ -87,8 +90,18 @@ Apply the saved network settings and retry `python scripts/download_data.py` wit
 checksum verification intact. Then measure increasing uniform samples, audit
 conversion cells and dependence limitations, and predeclare choices before a fresh
 confirmation evaluation. Choose and authorize a hosting service before public
-deployment. Calibrate feature-shift alert thresholds and validate production-specific
+deployment. Validate feature-shift thresholds on representative data and production-specific
 recovery, power/guardrails and operating costs. See `BUILD_WITH_CODEX.md`.
 
 Setup/startup instructions are saved separately in the environment draft; a draft
 save is not publication or proof of restoration in a fresh task.
+
+## Commit-linked repeat
+
+After initial commit `06033b5`, `counterlift demo --out runs/committed-demo
+--bootstrap 200` recorded that clean commit, completed in 1.309 seconds and used
+231,395,328 bytes peak process RSS (about 220.7 MiB). Its aggregate export and UI
+checks passed, as did rollback to/from the distinct seed-43 run. See `RESULTS.md`.
+Subsequent monitoring hardening replaces the fixed heuristic with an explicitly
+approximate Gaussian-reference diagnostic; legacy bundles without covariance expose
+only descriptive shifts and do not fabricate a calibrated alert.

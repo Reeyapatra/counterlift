@@ -21,3 +21,4 @@ jobs:
       - run: counterlift demo --out runs/demo-verification --seed 43 --bootstrap 100
       - run: python scripts/check_rollback.py
       - run: counterlift export --run runs/demo --out runs/public-demo
+      - run: python scripts/validate_shift.py

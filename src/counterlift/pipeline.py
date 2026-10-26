@@ -12,6 +12,7 @@ from sklearn.model_selection import train_test_split
 
 from .data import FEATURES, validate
 from .models import fit_models, predict
+from .monitoring import fit_reference, feature_shift
 from .statistics import (bootstrap_mean, choose_policy, dr_signal,
                          experiment_report, gain_curve, interval, capacity_policy)
 
@@ -116,7 +117,7 @@ def _run(df, out, provenance, seed=42, repeats=200, propensity=None,
                 "runtime": {"python": platform.python_version(), **{p: version(p) for p in
                             ["numpy", "pandas", "scipy", "scikit-learn", "joblib"]}}}
     bundle = {"models": models, "winner": winner, "features": FEATURES,
-              "reference_mean": x.mean(axis=0), "reference_std": x.std(axis=0),
+              **fit_reference(x),
               "manifest": manifest}
     joblib.dump(bundle, out / "model.joblib")
     result.to_csv(out / "policy_evaluation.csv", index=False)
@@ -175,12 +176,17 @@ def score_file(model_path, input_path, output_path):
             temporary.unlink(missing_ok=True)
         identity["output_sha256"] = checksum(output_path)
         sidecar.write_text(json.dumps(identity, indent=2))
-    scale = np.where(bundle["reference_std"] > 0, bundle["reference_std"], 1.)
-    shifts = (df[FEATURES].mean().to_numpy() - bundle["reference_mean"]) / scale
-    return {"rows": len(scored), "standardized_mean_shift": dict(zip(FEATURES, shifts)),
-            "shift_alert": bool((np.abs(shifts) > .2).any()),
-            "shift_threshold": .2, "threshold_basis": "heuristic screening threshold; not calibrated to historical data",
-            "note": "Descriptive feature shift only; does not measure causal-effect drift"}
+    if "reference_covariance" in bundle:
+        report = feature_shift(df[FEATURES].to_numpy(), bundle)
+        report['standardized_mean_shift'] = dict(zip(FEATURES, report['standardized_mean_shift']))
+        return {'rows': len(scored), **report}
+    # Backward compatibility for earlier evaluated artifacts, without fabricating calibration.
+    scale = np.where(bundle['reference_std'] > 0, bundle['reference_std'], 1.)
+    shifts = (df[FEATURES].mean().to_numpy() - bundle['reference_mean']) / scale
+    return {'rows': len(scored), 'standardized_mean_shift': dict(zip(FEATURES, shifts)),
+            'shift_alert': None, 'threshold_basis': 'Legacy bundle: no calibrated reference covariance',
+            'note': 'Descriptive shift only; create a fresh run to enable Gaussian-reference screening'}
+
 
 
 def run(df, out, provenance, *args, **kwargs):

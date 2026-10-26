@@ -67,9 +67,15 @@ ID. Repeating the same completed job is idempotent; conflicting or incomplete fi
 are rejected. Do not overwrite input data. CSV publication is atomic; a crash
 between CSV publication and sidecar creation requires a fresh output path.
 
-Mean feature shift is descriptive only. The current 0.2 standardized-mean threshold
-is a transparent heuristic, **not** a calibrated alert or causal drift monitor.
-Real-data/historical threshold calibration is unfinished.
+Feature-mean shift uses a simulated maximum statistic across all 12 features,
+with training-only estimated covariance and both reference/target sample sizes.
+5,000 Gaussian draws target a familywise 5% screening level. In 300 correlated
+Gaussian synthetic trials the null alert rate was 6% and the declared shifted
+feature was detected in 100%; see `shift_validation.json`. This approximation is
+not calibrated on real Criteo, heavy tails or dependent samples and is not a causal
+drift monitor. Changed previously constant features are flagged separately.
+Legacy bundles without covariance return descriptive shifts without an alert.
+Real-data/historical calibration is unfinished.
 
 ## Operating cost assumptions
 
