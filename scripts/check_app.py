@@ -1,9 +1,9 @@
 """Headless UI checks, including aggregate integrity failures and interactions."""
 import os
 import tempfile
+import shutil
 from pathlib import Path
 from streamlit.testing.v1 import AppTest
-from counterlift.artifacts import export_public
 
 root = Path(__file__).resolve().parents[1]
 app_path = str(root / 'app.py')
@@ -24,7 +24,7 @@ try:
         os.environ['COUNTERLIFT_RUN'] = str(Path(d)/'missing')
         missing = AppTest.from_file(app_path).run(timeout=30)
         assert not missing.exception and missing.info
-        export_public(root/'runs/demo', Path(d)/'bad')
+        shutil.copytree(Path(old) if old else root/'runs/demo', Path(d)/'bad')
         (Path(d)/'bad/experiment.json').write_text('{}')
         os.environ['COUNTERLIFT_RUN'] = str(Path(d)/'bad')
         corrupt = AppTest.from_file(app_path).run(timeout=30)

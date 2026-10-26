@@ -105,3 +105,6 @@ checks passed, as did rollback to/from the distinct seed-43 run. See `RESULTS.md
 Subsequent monitoring hardening replaces the fixed heuristic with an explicitly
 approximate Gaussian-reference diagnostic; legacy bundles without covariance expose
 only descriptive shifts and do not fabricate a calibrated alert.
+
+The UI checker also supports an explicitly selected aggregate export without requiring
+an unrelated default run. Final snapshot startup uses `runs/final-public`.
